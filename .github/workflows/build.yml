@@ -1,0 +1,36 @@
+name: Build PotatoSK
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java environement
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+          java-package: jdk
+          architecture: x64
+          cache-dependency-path: |
+            sub-project/*.gradle*
+            sub-project/**/gradle-wrapper.properties
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build PotatoSK
+        run: ./gradlew build
+
+      - name: Upload nightly build
+        uses: actions/upload-artifact@v4
+        with:
+          name: PotatoSK
+          path: build/libs/**
