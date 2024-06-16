@@ -1,0 +1,51 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id "java"
+}
+
+group = "com.mcdragonmasters"
+version = "1.0.0"
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {url = "https://repo.papermc.io/repository/maven-public/"}
+    maven {url = "https://repo.skriptlang.org/releases"}
+    maven {url = "https://jitpack.io"}
+    maven {url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"}
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT"
+    implementation "net.kyori:adventure-text-minimessage:4.17.0"
+    compileOnly 'com.github.Olyno:skript-migrate:1.1.0'
+    compileOnly ("com.github.SkriptLang:Skript:2.8.0") {
+        transitive = false
+    }
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
+
+def oldestJava = 21
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ['-source', '' + oldestJava, '-target', '' + oldestJava]
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+    "version": version
+  ]
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset "UTF-8"
+    filesMatching("plugin.yml") {
+        expand props
+    }
+    from ("lang") {
+        include "**/*"
+        into "lang/"
+    }
+}
