@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class PotatoUtils {
     public static void test(String msg){
-        sendMessage(fromMiniMessage("<rainbow>POTATOOOOO"));
+        sendMessage(fromMiniMessage("<rainbow>POTATOOOOOo"));
     }
     public static void sendMessage(@NotNull Component message, Player... players){
         for (Player player : players) {
