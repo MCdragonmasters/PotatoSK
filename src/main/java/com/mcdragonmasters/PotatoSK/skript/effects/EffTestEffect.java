@@ -25,7 +25,9 @@ public class EffTestEffect extends Effect {
     private Expression<String> msg;
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, @NotNull SkriptParser.ParseResult parseResult) {
+        msg = (Expression<String>) exprs[0];
         return true;
     }
     @Override
