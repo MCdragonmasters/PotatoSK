@@ -1,10 +1,6 @@
-name: Build PotatoSK
+name: Java CI with Gradle
 
-on:
-  push:
-    branches:
-      - master
-      - main
+on: [push, pull_request]
 
 jobs:
   build:
