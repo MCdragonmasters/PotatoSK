@@ -1,19 +1,18 @@
 package com.mcdragonmasters.PotatoSK.skript.effects;
 
-import ch.njol.skript.lang.VariableString;
-import ch.njol.skript.util.StringMode;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-
 import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.VariableString;
+import ch.njol.skript.util.StringMode;
 import ch.njol.util.Kleenean;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import static com.mcdragonmasters.PotatoSK.PotatoSK.instance;
@@ -22,13 +21,13 @@ import static com.mcdragonmasters.PotatoSK.PotatoSK.instance;
 // Documentation
 @Name("Command With Permission")
 @Description("Make a Player execute a command with a permission")
-@Examples({ "make player execute command \"/op %player%\" with permission \"minecraft.command.op\"",
+@Examples({"make player execute command \"/op %player%\" with permission \"minecraft.command.op\"",
         "#Supports multiple commands",
-        "make player execute commands (\"/gamemode survival\" and \"/op %player%\") with permissions (\"minecraft.command.gamemode\" and \"minecraft.command.op\")" })
+        "make player execute commands (\"/gamemode survival\" and \"/op %player%\") with permissions (\"minecraft.command.gamemode\" and \"minecraft.command.op\")"})
 @Since("1.0.0")
 
-@SuppressWarnings({"unused", "RedundantSuppression", "deprecation"})
-public class EffCommandWithPermission extends Effect{
+@SuppressWarnings({"unused"})
+public class EffCommandWithPermission extends Effect {
 
     static {
         Skript.registerEffect(EffCommandWithPermission.class,
@@ -36,6 +35,7 @@ public class EffCommandWithPermission extends Effect{
                 "(let|make) %players% execute [command[s]] %strings% with permission[s] %strings%"
         );
     }
+
     private Expression<String> commands;
     private Expression<String> perms;
     private Expression<Player> players;
@@ -49,6 +49,7 @@ public class EffCommandWithPermission extends Effect{
         commands = VariableString.setStringMode(commands, StringMode.COMMAND);
         return true;
     }
+
     @Override
     protected void execute(@NotNull Event e) {
         for (String command : commands.getArray(e)) {
@@ -68,10 +69,6 @@ public class EffCommandWithPermission extends Effect{
             }
         }
     }
-
-
-
-
 
 
     @Override

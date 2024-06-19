@@ -1,6 +1,6 @@
 name: PotatoSK
 description: PotatoSK fr
-authors: [MCdragonmasters]
+authors: [ MCdragonmasters ]
 website: https://github.com/MCdragonmasters/PotatoSK
 version: @version@
 main: com.mcdragonmasters.PotatoSK.PotatoSK

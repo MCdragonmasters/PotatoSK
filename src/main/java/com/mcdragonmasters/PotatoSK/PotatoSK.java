@@ -1,19 +1,19 @@
 package com.mcdragonmasters.PotatoSK;
 
-import java.io.IOException;
-
+import ch.njol.skript.Skript;
+import ch.njol.skript.SkriptAddon;
+import ch.njol.skript.bstats.bukkit.Metrics;
+import ch.njol.skript.bstats.charts.SimplePie;
 import com.mcdragonmasters.PotatoSK.utils.PackageLoader;
+import com.olyno.skriptmigrate.SkriptMigrate;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.olyno.skriptmigrate.SkriptMigrate;
-import ch.njol.skript.bstats.bukkit.Metrics;
-import ch.njol.skript.bstats.charts.SimplePie;
-import ch.njol.skript.Skript;
-import ch.njol.skript.SkriptAddon;
+
+import java.io.IOException;
 
 @SuppressWarnings({"unused", "RedundantSuppression", "deprecation"})
 public class PotatoSK extends JavaPlugin {
@@ -25,7 +25,7 @@ public class PotatoSK extends JavaPlugin {
             + "[PotatoSK] " + ChatColor.RESET;
     SkriptAddon addon;
 
-	public void onEnable() {
+    public void onEnable() {
 
         instance = this;
         addon = Skript.registerAddon(this);
@@ -43,7 +43,7 @@ public class PotatoSK extends JavaPlugin {
 //        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 //            player.sendMessage(prefix + "fr");
 //        }
-         //Register events
+        //Register events
         PluginManager pm = getServer().getPluginManager();
         //pm.registerEvents(new JoinLeave(), this);
         new PackageLoader<Listener>("com.mcdragonmasters.PotatoSK.skript.events.bukkit", "register bukkit events").getList()
@@ -55,24 +55,24 @@ public class PotatoSK extends JavaPlugin {
 
         // Setup migrations
         if (classExist()) {
-			SkriptMigrate.load(this);
-		}
+            SkriptMigrate.load(this);
+        }
 
         if (!getDataFolder().exists()) {
-			saveDefaultConfig();
-		}
+            saveDefaultConfig();
+        }
 
-		config = getConfig();
+        config = getConfig();
 
     }
 
     private boolean classExist() {
-		try {
-			Class.forName("com.olyno.skriptmigrate.SkriptMigrate");
-			return true;
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
-	}
+        try {
+            Class.forName("com.olyno.skriptmigrate.SkriptMigrate");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
 
 }
