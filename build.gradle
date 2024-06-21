@@ -22,7 +22,7 @@ dependencies {
     implementation "net.kyori:adventure-text-minimessage:4.17.0"
     compileOnly 'com.github.Olyno:skript-migrate:1.1.0'
     implementation("dev.jorel:commandapi-bukkit-shade:9.5.0")
-    compileOnly("com.github.ShaneBeee:SkBee:3.5.0")
+    compileOnly("com.github.ShaneBeee:SkBee:3.4.3")
     compileOnly ("com.github.SkriptLang:Skript:2.8.0") {
         transitive = false
     }
