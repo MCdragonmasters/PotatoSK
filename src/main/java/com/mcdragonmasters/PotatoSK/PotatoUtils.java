@@ -1,13 +1,15 @@
 package com.mcdragonmasters.PotatoSK;
+import com.shanebeestudios.skbee.api.wrapper.ComponentWrapper;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
+@SuppressWarnings("unused")
 public class PotatoUtils {
     public static void test(String msg) {
-        sendMessage(fromMiniMessage("<rainbow>POTATOOOOOo"));
+        sendMessage((Component) fromMiniMessage("<rainbow>POTATOOOOOo"));
     }
 
     public static void sendMessage(@NotNull Component message, Player... players) {
@@ -16,8 +18,17 @@ public class PotatoUtils {
         }
     }
 
-    public static Component fromMiniMessage(@NotNull String string) {
-        return MiniMessage.miniMessage().deserialize(string);
+    public static ComponentWrapper fromMiniMessage(@NotNull String string) {
+        return ComponentWrapper.fromMiniMessage(string);
+    }
+    public static boolean isWaterlogged(Block block) {
+        if(block.getBlockData() instanceof Waterlogged) {
+            Waterlogged wl = (Waterlogged) block.getBlockData();
+            boolean isWaterlogged = wl.isWaterlogged();
+            return isWaterlogged;
+        } else {
+            return false;
+        }
     }
 }
 
