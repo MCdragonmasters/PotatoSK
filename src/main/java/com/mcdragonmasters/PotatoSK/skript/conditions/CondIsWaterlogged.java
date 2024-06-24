@@ -11,8 +11,6 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import com.mcdragonmasters.PotatoSK.PotatoUtils;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Waterlogged;
 import org.bukkit.event.Event;
 
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +53,7 @@ public class CondIsWaterlogged extends Condition {
 
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean init(Expression<?>[] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult) {
         blocks = (Expression<Block>) exprs[0];
         is = (matchedPattern == 0);
