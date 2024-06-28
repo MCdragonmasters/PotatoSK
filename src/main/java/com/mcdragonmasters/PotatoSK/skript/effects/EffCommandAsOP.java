@@ -32,13 +32,12 @@ public class EffCommandAsOP extends Effect {
 
     static {
         Skript.registerEffect(EffCommandAsOP.class,
-                "[execute] %players% command[s] %strings% as [a[n]] op[erator]",
-                "(let|make) %players% execute [command[s]] %strings% as [a[n]] op[erator]"
+                "[execute] %players% command[s] %strings% (as [a[n]] op[erator]|with all permissions)",
+                "(let|make) %players% execute [command[s]] %strings% (as [a[n]] op[erator]|with all permissions)"
         );
     }
 
     private Expression<String> commands;
-    private Expression<String> perms;
     private Expression<Player> players;
 
     @Override
@@ -46,7 +45,6 @@ public class EffCommandAsOP extends Effect {
     public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, @NotNull ParseResult parseResult) {
         players = (Expression<Player>) exprs[0];
         commands = (Expression<String>) exprs[1];
-        perms = (Expression<String>) exprs[2];
         commands = VariableString.setStringMode(commands, StringMode.COMMAND);
         return true;
     }
@@ -73,7 +71,7 @@ public class EffCommandAsOP extends Effect {
 
     @Override
     public @NotNull String toString(Event e, boolean debug) {
-        return "make " + players.toString(e, debug) + " execute command " + commands.toString(e, debug);
+        return "make " + players.toString(e, debug) + " execute command " + commands.toString(e, debug) + "as op";
     }
 
 }

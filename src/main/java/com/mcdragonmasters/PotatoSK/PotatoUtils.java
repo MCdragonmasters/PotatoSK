@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings("unused")
 public class PotatoUtils {
     public static void test(String msg) {
-        sendMessage((Component) fromMiniMessage("<rainbow>POTATOOOOOo"));
+        sendMessage((Component) fromMiniMessage(msg));
     }
 
     public static void sendMessage(@NotNull Component message, Player... players) {
@@ -22,10 +22,8 @@ public class PotatoUtils {
         return ComponentWrapper.fromMiniMessage(string);
     }
     public static boolean isWaterlogged(Block block) {
-        if(block.getBlockData() instanceof Waterlogged) {
-            Waterlogged wl = (Waterlogged) block.getBlockData();
-            boolean isWaterlogged = wl.isWaterlogged();
-            return isWaterlogged;
+        if(block.getBlockData() instanceof Waterlogged wl) {
+            return wl.isWaterlogged();
         } else {
             return false;
         }

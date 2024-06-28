@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/IntelliJ.PotatoSK.test.iml" filepath="$PROJECT_DIR$/.idea/modules/IntelliJ.PotatoSK.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PotatoSK.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PotatoSK.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PotatoSK.test.iml" filepath="$PROJECT_DIR$/.idea/modules/PotatoSK.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mcdragonmasters.PotatoSK.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mcdragonmasters.PotatoSK.test.iml" />
     </modules>
   </component>
 </project>

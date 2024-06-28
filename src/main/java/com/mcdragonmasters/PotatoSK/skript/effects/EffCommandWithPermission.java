@@ -73,7 +73,7 @@ public class EffCommandWithPermission extends Effect {
 
     @Override
     public @NotNull String toString(Event e, boolean debug) {
-        return "make " + players.toString(e, debug) + " execute command " + commands.toString(e, debug);
+        return "make " + players.toString(e, debug) + " execute command " + commands.toString(e, debug) + " with permission " + perms.toString(e, debug);
     }
 
 }
