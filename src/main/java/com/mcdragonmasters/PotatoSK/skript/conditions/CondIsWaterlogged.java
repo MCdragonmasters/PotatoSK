@@ -16,12 +16,12 @@ import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@Name("Entity - Is Glowing")
-@Description("Checks whether a player is glowing.")
+@Name("Block - Is WaterLogged")
+@Description("Checks whether a block is waterlogged.")
 @Examples({
         "if target block is waterlogged:"
 })
-@Since("1.6")
+@Since("1.0.0")
 @SuppressWarnings("unused")
 public class CondIsWaterlogged extends Condition {
 
