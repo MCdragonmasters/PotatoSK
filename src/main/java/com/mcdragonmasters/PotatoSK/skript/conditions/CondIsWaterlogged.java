@@ -28,7 +28,7 @@ public class CondIsWaterlogged extends Condition {
     static{
         Skript.registerCondition(CondIsWaterlogged.class,
                 "%blocks% (is|are) waterlogged",
-                "%blocks% (isn't|is not|aren't|are not) glowing"
+                "%blocks% (isn't|is not|aren't|are not) waterlogged"
         );
     }
 
