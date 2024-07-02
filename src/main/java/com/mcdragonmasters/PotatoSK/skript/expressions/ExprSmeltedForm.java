@@ -20,9 +20,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-// code stolen from Skirt, which is no longer maintained,
-// so it's here so that there is a up to date addon
-// with this feature
 @Name("ItemType - Smelted Form")
 @Description("returns smelt result of items, returns the same item if it cannot be smelted")
 @Examples({"on mine:",
