@@ -20,11 +20,10 @@ import static com.mcdragonmasters.PotatoSK.PotatoSK.instance;
 
 
 // Documentation
-@Name("Command With Permission")
+@Name("Command As OP")
 @Description("Make a Player execute a command with a permission")
-@Examples({"make player execute command \"/op %player%\" with permission \"minecraft.command.op\"",
-        "#Supports multiple commands",
-        "make player execute commands (\"/gamemode survival\" and \"/op %player%\") with permissions (\"minecraft.command.gamemode\" and \"minecraft.command.op\")"})
+@Examples({"make player execute command \"/op %player%\" as op",
+        "make player execute commands (\"/gamemode survival\" and \"/op %player%\") as op"})
 @Since("1.0.0")
 
 @SuppressWarnings({"unused"})
