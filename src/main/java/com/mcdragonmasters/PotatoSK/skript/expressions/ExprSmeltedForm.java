@@ -3,6 +3,7 @@ package com.mcdragonmasters.PotatoSK.skript.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
+import ch.njol.skript.bukkitutil.BurgerHelper;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -25,7 +26,7 @@ import java.util.Iterator;
 @Name("ItemType - Smelted Form")
 @Description("returns smelt result of items, returns the same item if it cannot be smelted")
 @Examples({"on mine:",
-        "\tgive player smelted drops of event-block"})
+        "\tgive player (smelted (drops of event-block using (player's tool)))"})
 @Since("1.0.0")
 
 @SuppressWarnings("unused")
@@ -41,13 +42,16 @@ public class ExprSmeltedForm extends SimplePropertyExpression<ItemType, ItemType
     @SuppressWarnings("deprecation")
     private ItemStack smelted(ItemStack item) {
         Material type = item.getType();
-        Iterator<Recipe> it = Bukkit.recipeIterator();
-        while (it.hasNext())
-            if (it.next() instanceof FurnaceRecipe recipe && recipe.getInput().getType().equals(type)) {
-                ItemStack result = item.clone();
-                result.setType(recipe.getResult().getType());
-                return result;
+        for (@NotNull Iterator<Recipe> it = Bukkit.recipeIterator(); it.hasNext(); ) {
+            if (it.next() instanceof FurnaceRecipe recipe){
+                Material ingredient = recipe.getInput().getType();
+                if (type == ingredient){
+                    ItemStack result = item.clone();
+                    result.setType(recipe.getResult().getType());
+                    return result;
+                }
             }
+        }
         return item;
     }
 
@@ -58,7 +62,7 @@ public class ExprSmeltedForm extends SimplePropertyExpression<ItemType, ItemType
 
     @Override
     protected @NotNull String getPropertyName() {
-        return "smelt result";
+        return "smelted form";
     }
 
     @Nullable

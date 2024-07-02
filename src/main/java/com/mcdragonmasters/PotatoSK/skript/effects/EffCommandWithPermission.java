@@ -22,7 +22,7 @@ import static com.mcdragonmasters.PotatoSK.PotatoSK.instance;
 @Name("Command With Permission")
 @Description("Make a Player execute a command with a permission")
 @Examples({"make player execute command \"/op %player%\" with permission \"minecraft.command.op\"",
-        "#Supports multiple commands",
+        "#Supports multiple commands and/or permissions",
         "make player execute commands (\"/gamemode survival\" and \"/op %player%\") with permissions (\"minecraft.command.gamemode\" and \"minecraft.command.op\")"})
 @Since("1.0.0")
 
