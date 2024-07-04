@@ -24,6 +24,7 @@ public class PotatoSK extends JavaPlugin {
     SkriptAddon addon;
 
     public void onEnable() {
+
         Metrics metrics = new Metrics(this, 22275);
         instance = this;
         try {
