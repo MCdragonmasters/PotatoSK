@@ -9,3 +9,4 @@ depend:
   - Skript
 softdepend:
   - WorldEdit
+  - Multiverse-Core

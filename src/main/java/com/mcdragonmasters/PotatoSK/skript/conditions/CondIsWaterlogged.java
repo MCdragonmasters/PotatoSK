@@ -9,7 +9,7 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.mcdragonmasters.PotatoSK.PotatoUtils;
+import com.mcdragonmasters.PotatoSK.utils.PotatoUtils;
 import org.bukkit.block.Block;
 import org.bukkit.event.Event;
 

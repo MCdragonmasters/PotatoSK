@@ -70,7 +70,7 @@ public class EffCommandAsOP extends Effect {
 
     @Override
     public @NotNull String toString(Event e, boolean debug) {
-        return "make " + players.toString(e, debug) + " execute command " + commands.toString(e, debug) + "as op";
+        return "make " + players.toString(e, debug) + " execute command \"" + commands.toString(e, debug) + "\" as op";
     }
 
 }

@@ -4,12 +4,12 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAddon;
 import ch.njol.skript.bstats.bukkit.Metrics;
 import ch.njol.skript.bstats.charts.SimplePie;
-import com.olyno.skriptmigrate.SkriptMigrate;
 import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -24,66 +24,48 @@ public class PotatoSK extends JavaPlugin {
     SkriptAddon addon;
 
     public void onEnable() {
-
+        saveDefaultConfig();
+        config = getConfig();
         Metrics metrics = new Metrics(this, 22275);
         instance = this;
         try {
             addon = Skript.registerAddon(this);
             addon.loadClasses("com.mcdragonmasters.PotatoSK.skript");
-            registerHooks("WorldEdit");
+            registerHook("WorldEdit", "WorldEdit");
+            registerHook("Multiverse-Core", "MultiverseCore");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         metrics.addCustomChart(new SimplePie("skript_version", () -> Skript.getVersion().toString()));
         Logger.success("PotatoSK has been enabled!");
         //Register events
-        PluginManager pm = getServer().getPluginManager();
+        //PluginManager pm = getServer().getPluginManager();
         //pm.registerEvents(new JoinLeave(), this);
-        // Setup migrations
-        if (classExist()) {
-            SkriptMigrate.load(this);
-        }
-
-        if (!getDataFolder().exists()) {
-            saveDefaultConfig();
-        }
-
-        config = getConfig();
-
     }
-
-    private boolean classExist() {
-        try {
-            Class.forName("com.olyno.skriptmigrate.SkriptMigrate");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
-    }
-    public void registerHooks(String plugin) throws IOException {
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled(plugin) || config.getBoolean(plugin.toLowerCase()+"-hook", true)) {
+    public void registerHook(@NotNull String name, @NotNull String plugin) throws IOException {
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled(name) && config.getBoolean(plugin.toLowerCase()+"-hook", true)) {
             addon.loadClasses("com.mcdragonmasters.PotatoSK.hooks."+plugin.toLowerCase());
-            Logger.success(plugin+" hook loaded!");
-        } else{
-            Logger.error(plugin+" hook not loaded.");
+            Logger.success(name+" hook loaded!");
+        } else {
+            Logger.error(name+" hook not loaded.");
         }
     }
     public static class Logger{
-
+        static ConsoleCommandSender console = Bukkit.getConsoleSender();
         public static void success(String message){
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.GREEN + message);
+            console.sendMessage(prefix + ChatColor.GREEN + message);
         }
 
         public static void log(String message){
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.WHITE + message);
+            console.sendMessage(prefix + ChatColor.WHITE + message);
         }
 
         public static void warn(String message){
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.YELLOW + message);
+            console.sendMessage(prefix + ChatColor.YELLOW + message);
         }
 
         public static void error(String message){
-            Bukkit.getConsoleSender().sendMessage(prefix + ChatColor.RED + message);
+            console.sendMessage(prefix + ChatColor.RED + message);
         }
     }
 }

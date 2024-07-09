@@ -6,27 +6,35 @@ plugins {
 }
 
 group = "com.mcdragonmasters"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
     mavenLocal()
+    //WorldEdit
     maven {url = "https://maven.enginehub.org/repo/"}
+    //Paper
     maven {url = "https://repo.papermc.io/repository/maven-public/"}
+    //Skript
     maven {url = "https://repo.skriptlang.org/releases"}
+    //Multiverse-Core
+    maven { url = "https://repo.onarandombox.com/content/groups/public/" }
+
     maven {url = "https://jitpack.io"}
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT"
     implementation "net.kyori:adventure-text-minimessage:4.17.0"
-    compileOnly 'com.github.Olyno:skript-migrate:1.1.0'
-    compileOnly("com.github.ShaneBeee:SkBee:3.5.3")
+    //WorldEdit
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.3-SNAPSHOT")
     compileOnly("com.sk89q.worldedit:worldedit-core:7.3.3-SNAPSHOT")
+    //Skript
     compileOnly ("com.github.SkriptLang:Skript:2.8.0") {
         transitive = false
     }
+    //Multiverse-Core
+    compileOnly 'com.onarandombox.multiversecore:multiverse-core:4.3.12'
 }
 
 java {
