@@ -6,6 +6,7 @@ import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 
+import com.mcdragonmasters.PotatoSK.utils.PotatoUtils;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import org.bukkit.Bukkit;
@@ -46,6 +47,7 @@ public class SecNewMultiverseWorld extends Section {
     private Expression<WorldType> type;
     private Expression<String> seed;
     private Expression<Boolean> generate_structures;
+    private Expression<Boolean> adjust_spawn;
 
     static {
         Skript.registerSection(SecNewMultiverseWorld.class,
@@ -55,6 +57,7 @@ public class SecNewMultiverseWorld extends Section {
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("type", null, false, WorldType.class));
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("seed", null, true, String.class));
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("generate structures", null, true, Boolean.class));
+        ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("adjust spawn", null, true, Boolean.class));
     }
 
     @Override
@@ -68,6 +71,7 @@ public class SecNewMultiverseWorld extends Section {
         if (type == null) return false;
         seed = (Expression<String>) ENTRY_CONTAINER.getOptional("seed", false);
         generate_structures = (Expression<Boolean>) ENTRY_CONTAINER.getOptional("generate structures", false);
+        adjust_spawn = (Expression<Boolean>) ENTRY_CONTAINER.getOptional("adjust spawn", false);
         name = (Expression<String>) exprs[0];
         if (name == null) return false;
 
@@ -85,23 +89,23 @@ public class SecNewMultiverseWorld extends Section {
 
     private void execute(Event e) {
         if (Bukkit.getWorld(name.getSingle(e)) != null) return;
-        MultiverseCore core = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
-        assert core != null;
-        MVWorldManager worldManager = core.getMVWorldManager();
+
+        MVWorldManager worldManager = ((MultiverseCore) PotatoUtils.getPluginInstance("Multiverse-Core")).getMVWorldManager();
 
         worldManager.addWorld(
                 name.getSingle(e), // The worldname
                 environment.getSingle(e), // The overworld environment type.
-                (seed != null ? seed.getSingle(e) : null), // The world seed. Any seed is fine for me, so we just pass null.
-                type.getSingle(e), // Nothing special. If you want something like a flat world, change this.
-                (generate_structures.getSingle(e) != null ? generate_structures.getSingle(e) : true), // This means we want to structures like villages to generator, Change to false if you don't want this.
-                null // Specifies a custom generator. We are not using any, so we just pass null.
+                (seed.getSingle(e) != null ? seed.getSingle(e) : null), // seed
+                type.getSingle(e), // world type
+                (generate_structures.getSingle(e) != null ? generate_structures.getSingle(e) : true), // generate structures
+                null, //custom generator
+                (adjust_spawn.getSingle(e) != null ? adjust_spawn.getSingle(e) : true) //adjust spawn
         );
     }
 
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean debug) {
-        return "idk TODO";
+        return "return create a new multiverse-core world named " + name.toString(e, debug);
     }
 }
