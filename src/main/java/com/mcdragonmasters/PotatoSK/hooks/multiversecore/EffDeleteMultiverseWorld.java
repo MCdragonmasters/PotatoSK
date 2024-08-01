@@ -1,10 +1,7 @@
 package com.mcdragonmasters.PotatoSK.hooks.multiversecore;
 
 import ch.njol.skript.Skript;
-import ch.njol.skript.doc.Description;
-import ch.njol.skript.doc.Examples;
-import ch.njol.skript.doc.Name;
-import ch.njol.skript.doc.Since;
+import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
@@ -18,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 @Description("Deletes a Multiverse Core world")
 @Examples({"delete mv world named \"test\""})
 @Since("1.0.1")
+@RequiredPlugins("Multiverse-Core")
 
 @SuppressWarnings({"unused"})
 public class EffDeleteMultiverseWorld extends Effect {
