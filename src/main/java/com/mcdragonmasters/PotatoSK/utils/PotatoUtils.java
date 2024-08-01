@@ -16,5 +16,6 @@ public class PotatoUtils {
     public static Plugin getPluginInstance(String plugin) {
         return Bukkit.getServer().getPluginManager().getPlugin(plugin);
         }
+
 }
 

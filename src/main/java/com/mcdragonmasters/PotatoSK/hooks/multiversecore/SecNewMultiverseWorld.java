@@ -6,9 +6,12 @@ import ch.njol.skript.doc.*;
 import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 
+import com.mcdragonmasters.PotatoSK.PotatoSK;
 import com.mcdragonmasters.PotatoSK.utils.PotatoUtils;
+
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.WorldType;
@@ -22,6 +25,7 @@ import org.skriptlang.skript.lang.entry.EntryValidator;
 import org.skriptlang.skript.lang.entry.util.ExpressionEntryData;
 
 import java.util.List;
+import java.util.TimeZone;
 
 @Name("Create a New Multiverse World")
 @Description("idk")
@@ -48,6 +52,12 @@ public class SecNewMultiverseWorld extends Section {
     private Expression<String> seed;
     private Expression<Boolean> generate_structures;
     private Expression<Boolean> adjust_spawn;
+    private Expression<String> generator;
+    private Boolean hasGenStruct;
+    private Boolean hasAdjSpa;
+    private Boolean hasSeed;
+    private Boolean hasCustomGen;
+
 
     static {
         Skript.registerSection(SecNewMultiverseWorld.class,
@@ -58,6 +68,7 @@ public class SecNewMultiverseWorld extends Section {
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("seed", null, true, String.class));
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("generate structures", null, true, Boolean.class));
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("adjust spawn", null, true, Boolean.class));
+        ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("generator", null, true, String.class));
     }
 
     @Override
@@ -65,19 +76,44 @@ public class SecNewMultiverseWorld extends Section {
     public boolean init(Expression<?> @NotNull [] exprs, int matchedPattern, @NotNull Kleenean isDelayed, SkriptParser.@NotNull ParseResult parseResult, @NotNull SectionNode sectionNode, @NotNull List<TriggerItem> triggerItems) {
         ENTRY_CONTAINER = ENTRY_VALIDATOR.build().validate(sectionNode);
         if (ENTRY_CONTAINER == null) return false;
-        this.environment = (Expression<Environment>) ENTRY_CONTAINER.getOptional("environment", false);
-        if (this.environment == null) return false;
-        type = (Expression<WorldType>) ENTRY_CONTAINER.getOptional("type", false);
-        if (type == null) return false;
-        seed = (Expression<String>) ENTRY_CONTAINER.getOptional("seed", false);
-        generate_structures = (Expression<Boolean>) ENTRY_CONTAINER.getOptional("generate structures", false);
-        adjust_spawn = (Expression<Boolean>) ENTRY_CONTAINER.getOptional("adjust spawn", false);
+
         name = (Expression<String>) exprs[0];
-        if (name == null) return false;
+        if (name == null) {
+            return false;
+        }
+
+        // The world environment to be used, required
+        environment = (Expression<Environment>) ENTRY_CONTAINER.getOptional("environment", false);
+        if (environment == null) {
+            return false;
+        }
+
+        // The world type to be used, required
+        type = (Expression<WorldType>) ENTRY_CONTAINER.getOptional("type", false);
+        if (type == null) {
+            return false;
+        }
+
+        // seed
+        seed = (Expression<String>) ENTRY_CONTAINER.getOptional("seed", false);
+
+        // generate structures, optional
+        generate_structures = (Expression<Boolean>) ENTRY_CONTAINER.getOptional("generate structures", false);
+
+        // whether to adjust the world spawn, optional
+        adjust_spawn = (Expression<Boolean>) ENTRY_CONTAINER.getOptional("adjust spawn", false);
+
+        // The world generator to use, optional
+        generator = (Expression<String>) ENTRY_CONTAINER.getOptional("generator", false);
+
+        // Conditions
+        hasGenStruct = generate_structures != null;
+        hasSeed = seed != null;
+        hasAdjSpa = adjust_spawn != null;
+        hasCustomGen = generator != null;
 
         return true;
     }
-
 
 
     @Override
@@ -88,24 +124,23 @@ public class SecNewMultiverseWorld extends Section {
     }
 
     private void execute(Event e) {
-        if (Bukkit.getWorld(name.getSingle(e)) != null) return;
 
-        MVWorldManager worldManager = ((MultiverseCore) PotatoUtils.getPluginInstance("Multiverse-Core")).getMVWorldManager();
+        MVWorldManager worldManager = PotatoSK.getMVWorldManager();
 
         worldManager.addWorld(
                 name.getSingle(e), // The worldname
                 environment.getSingle(e), // The overworld environment type.
-                (seed.getSingle(e) != null ? seed.getSingle(e) : null), // seed
+                (hasSeed ? seed.getSingle(e) : null), // seed
                 type.getSingle(e), // world type
-                (generate_structures.getSingle(e) != null ? generate_structures.getSingle(e) : true), // generate structures
-                null, //custom generator
-                (adjust_spawn.getSingle(e) != null ? adjust_spawn.getSingle(e) : true) //adjust spawn
+                (hasGenStruct ? generate_structures.getSingle(e) : true), // generate structures
+                (hasCustomGen ? generator.getSingle(e) : null), // generator
+                (hasAdjSpa ? adjust_spawn.getSingle(e) : true) // adjust spawn
         );
     }
 
 
     @Override
     public @NotNull String toString(@Nullable Event e, boolean debug) {
-        return "return create a new multiverse-core world named " + name.toString(e, debug);
+        return "create a new multiverse-core world named " + name.toString(e, debug);
     }
 }
