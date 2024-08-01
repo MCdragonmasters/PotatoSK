@@ -7,12 +7,9 @@ import ch.njol.skript.lang.*;
 import ch.njol.util.Kleenean;
 
 import com.mcdragonmasters.PotatoSK.PotatoSK;
-import com.mcdragonmasters.PotatoSK.utils.PotatoUtils;
 
-import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.WorldType;
 import org.bukkit.event.Event;
@@ -25,19 +22,17 @@ import org.skriptlang.skript.lang.entry.EntryValidator;
 import org.skriptlang.skript.lang.entry.util.ExpressionEntryData;
 
 import java.util.List;
-import java.util.TimeZone;
 
 @Name("Create a New Multiverse World")
-@Description("idk")
+@Description("Creates a Multiverse Core world")
 @Examples({
-        "create [new] multiverse world named %string%:",
-        "\turl: \"https://www.someurl.com\"",
-        "\tmethod: \"GET\"",
-        "",
-        "http request builder stored in {_request}:",
-        "\turl: \"https://www.someurl.com\"",
-        "\tmethod: \"GET\"",
-        "\tbody: \"some body\"",
+        "create a new multiverse-core world named \"test\":",
+                "\tenvironment: normal # world environment, required",
+                "\ttype: flat # world type, required",
+                "\tgenerate structures: false # boolean optional",
+                "\tseed: \"69\" # string, optional",
+                "\tgenerator: \"VoidGen\" # string, optional",
+                "\tadjust spawn: true # boolean, optional"
 })
 @Since("1.0.1")
 @RequiredPlugins("Multiverse-Core")
@@ -61,7 +56,7 @@ public class SecNewMultiverseWorld extends Section {
 
     static {
         Skript.registerSection(SecNewMultiverseWorld.class,
-                "create [a] [new] multiverse[( |-)core] world (with name|named) %string%"
+                "create [a] [new] (multiverse[( |-)core]|mv) world (with name|named) %string%"
         );
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("environment", null, false, Environment.class));
         ENTRY_VALIDATOR.addEntryData(new ExpressionEntryData<>("type", null, false, WorldType.class));
