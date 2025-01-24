@@ -15,7 +15,7 @@ assignees: ''
 
 **Skript:** <Your version of Skript> (``/ver skript``)
 **Server:** <Your version of Minecraft server> (``/ver``)
-**Skent:** <Your version of Skent> (``/ver skent``)
+**PotatoSK:** <Your version of PotatoSK> (``/ver skent``)
 
 ## Code
 
