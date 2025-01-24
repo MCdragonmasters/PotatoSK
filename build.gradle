@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.mcdragonmasters"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -18,28 +18,21 @@ repositories {
     //Skript
     maven {url = "https://repo.skriptlang.org/releases"}
     //Multiverse-Core
-    maven { url = "https://repo.onarandombox.com/content/groups/public/" }
+    maven {url = "https://repo.onarandombox.com/content/groups/public/"}
 
     maven {url = "https://jitpack.io"}
 }
 
 dependencies {
     //Paper
-    compileOnly "io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT"
-
-
-    //WorldEdit
-    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.3-SNAPSHOT")
-    compileOnly("com.sk89q.worldedit:worldedit-core:7.3.3-SNAPSHOT")
+    compileOnly "io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT"
 
     //Skript
-    compileOnly ("com.github.SkriptLang:Skript:2.8.0") {
+    compileOnly ("com.github.SkriptLang:Skript:2.10.0") {
         transitive = false
     }
-    //TAB
-    compileOnly 'com.github.NEZNAMY:TAB-API:4.1.6'
     //Multiverse-Core
-    compileOnly 'com.onarandombox.multiversecore:multiverse-core:4.3.12'
+    compileOnly 'com.onarandombox.multiversecore:multiverse-core:4.3.14'
 }
 
 java {

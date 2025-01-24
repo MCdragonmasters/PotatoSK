@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 
 public class PotatoUtils {
     public static boolean isWaterlogged(Block block) {
-        if(block.getBlockData() instanceof Waterlogged wl) {
+        if (block.getBlockData() instanceof Waterlogged wl) {
             return wl.isWaterlogged();
         } else {
             return false;
